@@ -85,6 +85,7 @@
             padding: 15px;
             border-bottom: 1px solid #f0f0f0;
             font-size: 15px;
+            vertical-align: top;
         }
         .label-cell { color: #555; width: 40%; }
         .value-cell { text-align: right; font-weight: bold; }
@@ -123,7 +124,7 @@
             <div class="form-group">
                 <label>কেন্দ্রীয় পরীক্ষা নির্বাচন করুন <span style="color:red">*</span></label>
                 <select id="year">
-                    <option value="2025">১৪৪৬ হিজরি / ২০২৫ ঈসাব্দ</option>
+                    <option value="2026">১৪৪৭ হিজরি / ১৪৩২ বঙ্গাব্দ / ২০২৬ ঈসাব্দ</option>
                 </select>
             </div>
 
@@ -178,30 +179,31 @@
 
 <script>
     const studentData = {
-        "118521-14441": {
+        "110966-10105": {
             info: {
-                roll: "১১৮৫২১",
-                name: "আহমাদ উসামা",
-                father: "মো: আ: কাদির",
-                dob: "৩০/১২/২০০৪",
-                madrasa: "জামিয়া ইসলামিয়া দারুল উলুম মাদানিয়া, যাত্রাবাড়ী",
-                reg: "১৪৪৪১"
+                roll: "১১০৯৬৬",
+                name: "নাজমুস সাকিব",
+                father: "মো:নজরুল ইসলাম",
+                dob: "২৪/০৯/২০০৮",
+                reg: "১০১০৫",
+                markaz: "জামিয়া ইসলামিয়া দারুল উলুম মাদানিয়া যাত্রাবাড়ী ঢাকা",
+                madrasa: "জামিয়া ইসলামিয়া দারুল উলুম মাদানিয়া যাত্রাবাড়ী ঢাকা"
             },
             summary: {
-                total: "২৮০",
-                grace: "০",
-                division: "মাকবুল",
-                position: "০",
-                year: "২০২৫"
+                total: "623",
+                grace: "89",
+                division: "মুমতায",
+                position: "41",
+                year: "২০২৬"
             },
             marks: [
-                ["মুখতাসার", 100, 33],
-                ["নুরুল আনওয়ার", 100, 36],
-                ["মাকামাত", 100, 54],
-                ["তরজমা", 100, 60],
-                ["শরহে বেকায়া", 100, 40],
-                ["সিরাজী", 100, 21], // ফেল মার্ক হাইলাইট হবে
-                ["ইনশা", 100, 36]
+                ["মুখতাসার", 100, 80],
+                ["নুরুল আনওয়ার", 100, 89],
+                ["মাকামাত", 100, 81],
+                ["তরজমা", 100, 93],
+                ["শরহে বেকায়া", 100, 97],
+                ["সিরাজী", 100, 85],
+                ["ইনশা", 100, 98]
             ]
         }
     };
@@ -222,6 +224,8 @@
                 <tr><td class="label-cell">পিতার নাম:</td><td class="value-cell">${data.info.father}</td></tr>
                 <tr><td class="label-cell">জন্ম-তারিখ:</td><td class="value-cell">${data.info.dob}</td></tr>
                 <tr><td class="label-cell">রেজি. নম্বর:</td><td class="value-cell">${data.info.reg}</td></tr>
+                <tr><td class="label-cell">মারকাজ:</td><td class="value-cell">${data.info.markaz}</td></tr>
+                <tr><td class="label-cell">মাদরাসা:</td><td class="value-cell">${data.info.madrasa}</td></tr>
             `;
 
             // ২. সারসংক্ষেপ
@@ -255,4 +259,4 @@
 </script>
 
 </body>
-  </html>
+</html>
