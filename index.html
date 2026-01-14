@@ -90,7 +90,6 @@
         .label-cell { color: #555; width: 40%; }
         .value-cell { text-align: right; font-weight: bold; }
 
-        /* বিস্তারিত নম্বর টেবিল */
         .marks-table {
             width: 100%;
             border-collapse: collapse;
@@ -107,7 +106,7 @@
             border-bottom: 1px solid #eee;
             font-size: 14px;
         }
-        .fail-mark { background-color: #fca5a5; font-weight: bold; } /* সিরাজীর লাল ব্যাকগ্রাউন্ড */
+        .fail-mark { background-color: #fca5a5; font-weight: bold; }
         .total-row { font-weight: bold; background: #f9f9f9; }
     </style>
 </head>
@@ -141,12 +140,12 @@
 
             <div class="form-group">
                 <label>রোল নম্বর (ইংরেজিতে লিখুন) <span style="color:red">*</span></label>
-                <input type="text" id="roll" placeholder="যেমন: 118521" required>
+                <input type="text" id="roll" placeholder="যেমন: 110966" required>
             </div>
 
             <div class="form-group">
                 <label>রেজি নম্বর (ইংরেজিতে লিখুন) <span style="color:red">*</span></label>
-                <input type="text" id="reg" placeholder="যেমন: 14441" required>
+                <input type="text" id="reg" placeholder="যেমন: 10105" required>
             </div>
 
             <div class="btn-container">
@@ -178,33 +177,36 @@
 </div>
 
 <script>
+    // এখানে ছাত্রের তথ্যগুলো সিরিয়াল অনুযায়ী আছে। আপনি রোল-রেজি কী (Key) অনুযায়ী ডাটা পরিবর্তন করতে পারবেন।
     const studentData = {
         "110966-10105": {
-            info: {
-                roll: "১১০৯৬৬",
-                name: "নাজমুস সাকিব",
-                father: "মো:নজরুল ইসলাম",
-                dob: "২৪/০৯/২০০৮",
-                reg: "১০১০৫",
-                markaz: "জামিয়া ইসলামিয়া দারুল উলুম মাদানিয়া যাত্রাবাড়ী ঢাকা",
-                madrasa: "জামিয়া ইসলামিয়া দারুল উলুম মাদানিয়া যাত্রাবাড়ী ঢাকা"
-            },
-            summary: {
-                total: "623",
-                grace: "89",
-                division: "মুমতায",
-                position: "41",
-                year: "২০২৬"
-            },
-            marks: [
-                ["মুখতাসার", 100, 80],
-                ["নুরুল আনওয়ার", 100, 89],
-                ["মাকামাত", 100, 81],
-                ["তরজমা", 100, 93],
-                ["শরহে বেকায়া", 100, 97],
-                ["সিরাজী", 100, 85],
-                ["ইনশা", 100, 98]
-            ]
+            info: { roll: "১১০৯৬৬", name: "নাজমুস সাকিব", father: "মো:নজরুল ইসলাম", dob: "২৪/০৯/২০০৮", reg: "১০১০৫", markaz: "জামিয়া ইসলামিয়া দারুল উলুম মাদানিয়া যাত্রাবাড়ী ঢাকা", madrasa: "জামিয়া ইসলামিয়া দারুল উলুম মাদানিয়া যাত্রাবাড়ী ঢাকা" },
+            summary: { total: "623", grace: "89", division: "মুমতায", position: "41", year: "২০২৬" },
+            marks: [["মুখতাসার", 100, 80], ["নুরুল আনওয়ার", 100, 89], ["মাকামাত", 100, 81], ["তরজমা", 100, 93], ["শরহে বেকায়া", 100, 97], ["সিরাজী", 100, 85], ["ইনশা", 100, 98]]
+        },
+        // অতিরিক্ত ছাত্র ১
+        "110928-10065": {
+            info: { roll: "১১০৯২৮", name: "জান্নাতুর রাইয়ান", father: "মাওলানা মোস্তাকিম", dob: "২৬/১২/২০০৫", reg: "১০০৬৫", markaz: "জামিয়া ইসলামিয়া দারুল উলুম মাদানিয়া যাত্রাবাড়ী ঢাকা", madrasa: "জামিয়া ইসলামিয়া দারুল উলুম মাদানিয়া যাত্রাবাড়ী ঢাকা" },
+            summary: { total: "563", grace: "80", division: "মুমতায", position: "---", year: "২০২৬" },
+            marks: [["মুখতাসার", 100, 67], ["নুরুল আনওয়ার", 100, 75], ["মাকামাত", 100, 72], ["তরজমা", 100, 80], ["শরহে বেকায়া", 100, 90], ["সিরাজী", 100, 84], ["ইনশা", 100, 95]]
+        },
+        // অতিরিক্ত ছাত্র ২
+        "110968-10107": {
+            info: { roll: "১১০৯৬৮", name: "মুহাম্মদ আলী", father: "মো: ইব্রাহিম খলিল", dob: "১০/০২/২০০৯", reg: "১০১০৭", markaz: "জামিয়া ইসলামিয়া দারুল উলুম মাদানিয়া যাত্রাবাড়ী ঢাকা", madrasa: "জামিয়া ইসলামিয়া দারুল উলুম মাদানিয়া যাত্রাবাড়ী ঢাকা" },
+            summary: { total: "510", grace: "72", division: "জায়্যিদ জিদ্দান", position: "---", year: "২০২৬" },
+            marks: [["মুখতাসার", 100, 70], ["নুরুল আনওয়ার", 100, 72], ["মাকামাত", 100, 68], ["তরজমা", 100, 75], ["শরহে বেকায়া", 100, 80], ["সিরাজী", 100, 70], ["ইনশা", 100, 75]]
+        },
+        // অতিরিক্ত ছাত্র ৩
+        "110969-10108": {
+            info: { roll: "১১০৯৬৯", name: "হাসান মাহমুদ", father: "মো: ইউসুফ আলী", dob: "১৫/০৮/২০০৮", reg: "১০১০৮", markaz: "জামিয়া ইসলামিয়া দারুল উলুম মাদানিয়া যাত্রাবাড়ী ঢাকা", madrasa: "জামিয়া ইসলামিয়া দারুল উলুম মাদানিয়া যাত্রাবাড়ী ঢাকা" },
+            summary: { total: "450", grace: "64", division: "জায়্যিদ", position: "---", year: "২০২৬" },
+            marks: [["মুখতাসার", 100, 60], ["নুরুল আনওয়ার", 100, 65], ["মাকামাত", 100, 62], ["তরজমা", 100, 68], ["শরহে বেকায়া", 100, 70], ["সিরাজী", 100, 60], ["ইনশা", 100, 65]]
+        },
+        // অতিরিক্ত ছাত্র ৪
+        "110970-10109": {
+            info: { roll: "১১০৯৭০", name: "ওসমান গণি", father: "মো: সোলায়মান", dob: "২০/১১/২০০৭", reg: "১০১০৯", markaz: "জামিয়া ইসলামিয়া দারুল উলুম মাদানিয়া যাত্রাবাড়ী ঢাকা", madrasa: "জামিয়া ইসলামিয়া দারুল উলুম মাদানিয়া যাত্রাবাড়ী ঢাকা" },
+            summary: { total: "350", grace: "50", division: "মাকবুল", position: "---", year: "২০২৬" },
+            marks: [["মুখতাসার", 100, 45], ["নুরুল আনওয়ার", 100, 50], ["মাকামাত", 100, 48], ["তরজমা", 100, 52], ["শরহে বেকায়া", 100, 55], ["সিরাজী", 100, 45], ["ইনশা", 100, 55]]
         }
     };
 
@@ -217,7 +219,6 @@
         if (studentData[key]) {
             const data = studentData[key];
             
-            // ১. ছাত্র তথ্য
             document.getElementById('student-info').innerHTML = `
                 <tr><td class="label-cell">রোল নম্বর :</td><td class="value-cell">${data.info.roll}</td></tr>
                 <tr><td class="label-cell">নাম:</td><td class="value-cell">${data.info.name}</td></tr>
@@ -228,7 +229,6 @@
                 <tr><td class="label-cell">মাদরাসা:</td><td class="value-cell">${data.info.madrasa}</td></tr>
             `;
 
-            // ২. সারসংক্ষেপ
             document.getElementById('result-summary').innerHTML = `
                 <tr><td class="label-cell">মোট নম্বর:</td><td class="value-cell">${data.summary.total}</td></tr>
                 <tr><td class="label-cell">গ্রেস মার্ক:</td><td class="value-cell">${data.summary.grace}</td></tr>
@@ -237,7 +237,6 @@
                 <tr><td class="label-cell">শিক্ষাবর্ষ:</td><td class="value-cell">${data.summary.year}</td></tr>
             `;
 
-            // ৩. বিস্তারিত নম্বর
             let marksHtml = "";
             data.marks.forEach(m => {
                 const isFail = m[2] < 33; 
@@ -253,7 +252,7 @@
             resultBox.style.display = 'block';
             window.scrollTo({ top: resultBox.offsetTop, behavior: 'smooth' });
         } else {
-            alert("দুঃখিত! এই তথ্য দিয়ে কোনো ফলাফল পাওয়া যায়নি।");
+            alert("দুঃখিত! এই তথ্য দিয়ে কোনো ফলাফল পাওয়া যায়নি। সঠিক রোল এবং রেজি নম্বর ব্যবহার করুন।");
         }
     }
 </script>
