@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wifaq Result Interface</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .container {
+            width: 100%;
+            max-width: 500px;
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        .header {
+            background-color: #1a7a3a;
+            color: white;
+            text-align: center;
+            padding: 25px 10px;
+        }
+        .header h1 { margin: 0; font-size: 22px; }
+        .header p { margin: 5px 0; font-size: 14px; opacity: 0.9; }
+        
+        .form-body { padding: 25px; }
+        .form-group { margin-bottom: 20px; }
+        label { display: block; margin-bottom: 8px; font-weight: bold; color: #333; }
+        select, input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+        .btn-container { display: flex; flex-direction: column; gap: 10px; margin-top: 20px; }
+        button {
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .btn-reset { background-color: #e0e0e0; color: #333; }
+        .btn-search { background-color: #1a7a3a; color: white; }
+
+        /* রেজাল্ট কার্ড স্টাইল */
+        #result-display {
+            width: 100%;
+            max-width: 500px;
+            background: white;
+            display: none;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid #ddd;
+        }
+        .section-header {
+            background-color: #dcfce7;
+            padding: 12px 15px;
+            font-weight: bold;
+            font-size: 16px;
+            color: #166534;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 1px solid #bbf7d0;
+        }
+        .info-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .info-table td {
+            padding: 15px;
+            border-bottom: 1px solid #f0f0f0;
+            font-size: 15px;
+        }
+        .label-cell { color: #555; width: 40%; }
+        .value-cell { text-align: right; font-weight: bold; }
+
+        /* বিস্তারিত নম্বর টেবিল */
+        .marks-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .marks-table th {
+            background-color: #dcfce7;
+            padding: 12px;
+            text-align: left;
+            font-size: 14px;
+            color: #166534;
+        }
+        .marks-table td {
+            padding: 12px;
+            border-bottom: 1px solid #eee;
+            font-size: 14px;
+        }
+        .fail-mark { background-color: #fca5a5; font-weight: bold; } /* সিরাজীর লাল ব্যাকগ্রাউন্ড */
+        .total-row { font-weight: bold; background: #f9f9f9; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h1>বেফাকুল মাদারিসিল আরাবিয়া বাংলাদেশ</h1>
+        <p>কওমী মাদ্রাসা শিক্ষা বোর্ড</p>
+    </div>
+
+    <div class="form-body">
+        <form id="resultForm">
+            <div class="form-group">
+                <label>কেন্দ্রীয় পরীক্ষা নির্বাচন করুন <span style="color:red">*</span></label>
+                <select id="year">
+                    <option value="2025">১৪৪৬ হিজরি / ২০২৫ ঈসাব্দ</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>মারহালা নির্বাচন করুন <span style="color:red">*</span></label>
+                <select id="marhala">
+                    <option value="takmil">তাকমীল</option>
+                    <option value="fazilat">ফযিলত</option>
+                    <option value="sanabia_ulia" selected>সানাবিয়া উলিয়া</option>
+                    <option value="sanabia">সানাবিয়া</option>
+                    <option value="mutawassita">মুতাওয়াসসিতা</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>রোল নম্বর (ইংরেজিতে লিখুন) <span style="color:red">*</span></label>
+                <input type="text" id="roll" placeholder="যেমন: 118521" required>
+            </div>
+
+            <div class="form-group">
+                <label>রেজি নম্বর (ইংরেজিতে লিখুন) <span style="color:red">*</span></label>
+                <input type="text" id="reg" placeholder="যেমন: 14441" required>
+            </div>
+
+            <div class="btn-container">
+                <button type="button" onclick="showResult()" class="btn-search">অনুসন্ধান করুন</button>
+                <button type="reset" class="btn-reset" onclick="document.getElementById('result-display').style.display='none'">পুনরায় সেট করুন</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div id="result-display">
+    <div class="section-header">👤 ছাত্র তথ্য</div>
+    <table class="info-table" id="student-info"></table>
+
+    <div class="section-header">📝 ফলাফল সারসংক্ষেপ</div>
+    <table class="info-table" id="result-summary"></table>
+
+    <div class="section-header">📊 বিস্তারিত নম্বর</div>
+    <table class="marks-table">
+        <thead>
+            <tr>
+                <th>বিষয়</th>
+                <th>পূর্ণমান</th>
+                <th>প্রাপ্ত নম্বর</th>
+            </tr>
+        </thead>
+        <tbody id="marks-details"></tbody>
+    </table>
+</div>
+
+<script>
+    const studentData = {
+        "118521-14441": {
+            info: {
+                roll: "১১৮৫২১",
+                name: "আহমাদ উসামা",
+                father: "মো: আ: কাদির",
+                dob: "৩০/১২/২০০৪",
+                madrasa: "জামিয়া ইসলামিয়া দারুল উলুম মাদানিয়া, যাত্রাবাড়ী",
+                reg: "১৪৪৪১"
+            },
+            summary: {
+                total: "২৮০",
+                grace: "০",
+                division: "মাকবুল",
+                position: "০",
+                year: "২০২৫"
+            },
+            marks: [
+                ["মুখতাসার", 100, 33],
+                ["নুরুল আনওয়ার", 100, 36],
+                ["মাকামাত", 100, 54],
+                ["তরজমা", 100, 60],
+                ["শরহে বেকায়া", 100, 40],
+                ["সিরাজী", 100, 21], // ফেল মার্ক হাইলাইট হবে
+                ["ইনশা", 100, 36]
+            ]
+        }
+    };
+
+    function showResult() {
+        const roll = document.getElementById('roll').value.trim();
+        const reg = document.getElementById('reg').value.trim();
+        const key = roll + "-" + reg;
+        const resultBox = document.getElementById('result-display');
+
+        if (studentData[key]) {
+            const data = studentData[key];
+            
+            // ১. ছাত্র তথ্য
+            document.getElementById('student-info').innerHTML = `
+                <tr><td class="label-cell">রোল নম্বর :</td><td class="value-cell">${data.info.roll}</td></tr>
+                <tr><td class="label-cell">নাম:</td><td class="value-cell">${data.info.name}</td></tr>
+                <tr><td class="label-cell">পিতার নাম:</td><td class="value-cell">${data.info.father}</td></tr>
+                <tr><td class="label-cell">জন্ম-তারিখ:</td><td class="value-cell">${data.info.dob}</td></tr>
+                <tr><td class="label-cell">রেজি. নম্বর:</td><td class="value-cell">${data.info.reg}</td></tr>
+            `;
+
+            // ২. সারসংক্ষেপ
+            document.getElementById('result-summary').innerHTML = `
+                <tr><td class="label-cell">মোট নম্বর:</td><td class="value-cell">${data.summary.total}</td></tr>
+                <tr><td class="label-cell">গ্রেস মার্ক:</td><td class="value-cell">${data.summary.grace}</td></tr>
+                <tr><td class="label-cell">বিভাগ:</td><td class="value-cell">${data.summary.division}</td></tr>
+                <tr><td class="label-cell">মেধা অবস্থান:</td><td class="value-cell">${data.summary.position}</td></tr>
+                <tr><td class="label-cell">শিক্ষাবর্ষ:</td><td class="value-cell">${data.summary.year}</td></tr>
+            `;
+
+            // ৩. বিস্তারিত নম্বর
+            let marksHtml = "";
+            data.marks.forEach(m => {
+                const isFail = m[2] < 33; 
+                marksHtml += `<tr>
+                    <td>${m[0]}</td>
+                    <td>${m[1]}</td>
+                    <td class="${isFail ? 'fail-mark' : ''}">${m[2]}</td>
+                </tr>`;
+            });
+            marksHtml += `<tr class="total-row"><td>মোট নম্বর</td><td>700</td><td>${data.summary.total}</td></tr>`;
+            document.getElementById('marks-details').innerHTML = marksHtml;
+
+            resultBox.style.display = 'block';
+            window.scrollTo({ top: resultBox.offsetTop, behavior: 'smooth' });
+        } else {
+            alert("দুঃখিত! এই তথ্য দিয়ে কোনো ফলাফল পাওয়া যায়নি।");
+        }
+    }
+</script>
+
+</body>
+  </html>
